@@ -1,0 +1,6 @@
+{
+  "esversion": 8,
+  "browser": true,
+  "node": true
+  // Add more configurations as needed
+}
