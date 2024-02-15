@@ -1,17 +1,16 @@
-import mongoose from 'mongoose';
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('Product', {
+export default setModel('Product', {
     product: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Product'
     },
     supplier: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Supplier'
     },
     company: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Company'
     },
     date: Date,

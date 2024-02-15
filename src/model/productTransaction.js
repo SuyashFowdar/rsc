@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('ProductTransaction', {
+export default setModel('ProductTransaction', {
     product: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Product'
     },
     amount: {
@@ -12,24 +11,24 @@ export default model('ProductTransaction', {
     },
     date: Date,
     transactions: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Transaction'
     }],
     details: String,
     company: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Company'
     },
     supplier: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Supplier'
     },
     client: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Client'
     },
     employee: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Employee'
     }
 });

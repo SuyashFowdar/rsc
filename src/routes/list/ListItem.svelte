@@ -1,15 +1,15 @@
 <script>
     import _ from 'lodash';
-    import { onMount, createEventDispatcher } from "svelte";
-    import Currency from './Currency.svelte';
+    import { onMount, createEventDispatcher } from 'svelte';
+    import ItemAttr from './ItemAttr.svelte';
 
     const dispatch = createEventDispatcher(),
-        currencyAttrList = ['incoming', 'outgoing', 'buyingPrice', 'sellingPrice'];
+      currencyAttrList = ['incoming', 'outgoing', 'buyingPrice', 'sellingPrice'];
 
     export let schema, dropdownDataByModelById, item, filter, type, setDefaultCompany, model;
 
     let filterValue = '',
-        dropdownFilter = _.cloneDeep(dropdownDataByModelById);
+      dropdownFilter = _.cloneDeep(dropdownDataByModelById);
 
     onMount(() => {
         if (setDefaultCompany) {
@@ -60,114 +60,15 @@
         {/if}
     </div>
     {#each _.keys(schema) as attr, attrIndex}
-        <div class="list-input input-group d-flex">
-            {#if currencyAttrList.includes(attr)}
-                <Currency bind:val={ item[attr] } isInput={ true } attr={ attr } filter={ filter } type={ type }
-                          placeholder={ _.startCase((attrIndex === 0 && model ? `${type} ${model} ` : '') + attr) } />
-            {:else if schema[attr].type === 'String'}
-                <input type="text"
-                       class="form-control { type === 'data' ? 'transparent-border' : '' }"
-                       placeholder={ _.startCase((attrIndex === 0 && model ? `${type} ${model} ` : '') + attr) }
-                       bind:value={ item[attr] }
-                       on:keyup={ () => { filter() } }>
-            {:else if schema[attr].type === 'Number'}
-                <input type="number"
-                       class="form-control { type === 'data' ? 'transparent-border' : '' }"
-                       placeholder={ _.startCase((attrIndex === 0 && model ? `${type} ${model} ` : '') + attr) }
-                       aria-describedby="basic-addon1"
-                       bind:value={ item[attr] }
-                       on:keyup={ () => { filter() } }>
-            {:else if schema[attr].type === 'Date'}
-                <input type="date"
-                       class="form-control { type === 'data' ? 'transparent-border' : '' }"
-                       aria-describedby="basic-addon1"
-                       placeholder={ _.startCase((attrIndex === 0 && model ? `${type} ${model} ` : '') + attr) }
-                       bind:value={ item[attr] }
-                       on:change={ () => { filter() } }>
-            {:else if schema[attr].type === 'ObjectId' && dropdownDataByModelById[schema[attr].model] &&
-            !_.isEmpty(dropdownDataByModelById[schema[attr].model])}
-                <div class="dropdown flex-fill d-flex">
-                    <button class="btn dropdown-toggle flex-fill dropdown-title { type === 'data' ? 'transparent-border' : '' }"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"
-                            aria-expanded="false">
-                        {#if item[attr]}
-                            { dropdownDataByModelById[schema[attr].model][item[attr]].title }
-                        {:else}
-                            Select { _.startCase((attrIndex === 0 && model ? `${type} ${model} ` : '') + attr) }...
-                        {/if}
-                    </button>
-                    <div class="dropdown-menu" style="width: 100%;">
-                        <div class="input-group mb-3 me-3 d-flex">
-                            <span class="input-group-text" id="filter">Filter</span>
-                            <input type="text"
-                                   class="form-control"
-                                   aria-describedby="filter"
-                                   bind:value={ filterValue }
-                                   on:keyup={ () => { filterDropdown(schema[attr].model) } }>
-                        </div>
-                        <div class="list-group">
-                            {#each _.keys(dropdownFilter[schema[attr].model]) as subItemAttr, subItemAttrIndex}
-                                <button type="button"
-                                        class="list-group-item list-group-item-action {
-                                            item[attr] && item[attr] ===
-                                            dropdownDataByModelById[schema[attr].model][subItemAttr].id ? 'active' : ''
-                                        }"
-                                        aria-current="true"
-                                        on:click={ () => { selectOneSubItem(subItemAttr, attr) } }>
-                                    { dropdownDataByModelById[schema[attr].model][subItemAttr].title }
-                                </button>
-                            {/each}
-                        </div>
-                    </div>
-                </div>
-            {:else if schema[attr].type === 'Array' && dropdownDataByModelById[schema[attr].model] &&
-            !_.isEmpty(dropdownDataByModelById[schema[attr].model])}
-                <div class="dropdown flex-fill d-flex">
-                    <button class="btn dropdown-toggle flex-fill dropdown-title { type === 'data' ? 'transparent-border' : '' }"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"
-                            aria-expanded="false">
-                        {#if item[attr] && item[attr].length}
-                            {#each item[attr] as itemAttr2, itemAttr2Index}
-                                {#if itemAttr2Index},{/if}
-                                {#if dropdownDataByModelById[schema[attr].model][itemAttr2]}
-                                    { dropdownDataByModelById[schema[attr].model][itemAttr2].title }
-                                {/if}
-                            {/each}
-                        {:else}
-                            Select { _.startCase((attrIndex === 0 && model ? `${type} ${model} ` : '') + attr) }...
-                        {/if}
-                    </button>
-                    <div class="dropdown-menu" style="width: 100%;">
-                        <div class="input-group mb-3 me-3 d-flex">
-                            <span class="input-group-text" id="filter">Filter</span>
-                            <input type="text"
-                                   class="form-control"
-                                   aria-describedby="filter"
-                                   bind:value={ filterValue }
-                                   on:keyup={ () => { filterDropdown(schema[attr].model) } }>
-                        </div>
-                        <div class="list-group">
-                            {#each _.keys(dropdownFilter[schema[attr].model]) as subItemAttr, subItemAttrIndex}
-                                <button type="button"
-                                        class="list-group-item list-group-item-action {
-                                            item[attr] &&
-                                            item[attr].includes(dropdownDataByModelById[
-                                                schema[attr].model][subItemAttr].id) ? 'active' : ''
-                                        }"
-                                        aria-current="true"
-                                        on:click={ () => { selectSubItem(subItemAttr, attr) } }>
-                                    { dropdownDataByModelById[schema[attr].model][subItemAttr].title }
-                                </button>
-                            {/each}
-                        </div>
-                    </div>
-                </div>
-            {/if}
-        </div>
+        <ItemAttr schema={ schema }
+                  dropdownDataByModelById={ dropdownDataByModelById }
+                  item={ item }
+                  filter={ filter }
+                  setDefaultCompany={ setDefaultCompany }
+                  model={ model }
+                  type={ type }
+                  attr={ attr }
+                  attrIndex={ attrIndex } />
     {/each}
 </div>
 <style>

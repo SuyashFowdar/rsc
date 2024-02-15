@@ -1,11 +1,10 @@
-import mongoose from 'mongoose';
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('User', {
+export default setModel('User', {
     username: String,
     password: String,
     employee: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Employee'
     }
 });

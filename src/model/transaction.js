@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('Transaction', {
+export default setModel('Transaction', {
     details: String,
     date: Date,
     incoming: {
@@ -13,19 +12,19 @@ export default model('Transaction', {
         default: 0
     },
     company: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Company'
     },
     supplier: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Supplier'
     },
     client: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Client'
     },
     employee: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Employee'
     }
 });

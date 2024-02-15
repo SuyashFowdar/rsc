@@ -1,6 +1,6 @@
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('Location', {
+export default setModel('Location', {
     name: String,
     address: String,
     street: String,

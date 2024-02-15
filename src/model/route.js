@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('Route', {
+export default setModel('Route', {
     code: String,
     locations: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Location'
     }],
     noOfPeople: Number

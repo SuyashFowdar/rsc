@@ -264,7 +264,7 @@
             <i class="fa-regular fa-share-from-square"></i>
             Import
         </button>
-        <button class="btn { showFilter ? 'btn-primary' : 'btn-outline-primary' }" type="button"
+        <button class="btn { showFilter ? 'btn-primary' : ' btn-outline-primary' }" type="button"
                 on:click={ () => { showFilter = !showFilter } }>
             <i class="fa-solid fa-filter"></i>
             Filter
@@ -408,7 +408,7 @@
         font-weight: bold;
         text-transform: capitalize;
         padding: 5px 10px;
-        background-color: rgb(200, 200, 200);
+        background-color: rgb(75, 75, 75);
         white-space: nowrap;
     }
 
@@ -417,7 +417,7 @@
     }
 
     .list-container article:nth-of-type(even) {
-        background-color: #cfe2ff;
+        background-color: rgb(50, 50, 50);
     }
 
     .list-container article,

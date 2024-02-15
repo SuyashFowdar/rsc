@@ -1,6 +1,6 @@
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('Company', {
+export default setModel('Company', {
     name: String,
     brn: String
 });

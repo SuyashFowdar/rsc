@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
-import model from '../lib/utils/model';
+import { types, setModel } from '../lib/utils/model';
 
-export default model('Client', {
+export default setModel('Client', {
     name: String,
     company: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: types.ObjectId,
         ref: 'Company'
     }],
     address: String,
