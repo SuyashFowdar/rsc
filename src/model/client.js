@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const client = {
+export default model('Client', {
     name: String,
     company: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -15,10 +15,4 @@ const client = {
     bankAccNo: Number,
     bankName: String,
     bankBranch: String
-};
-
-const clientSchema = new mongoose.Schema(client);
-
-clientSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Client', clientSchema);
+});

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const trip = {
+export default model('Trip', {
     date: String,
     employee: {
         type: mongoose.Schema.Types.ObjectId,
@@ -13,10 +13,4 @@ const trip = {
     },
     noOfPeople: Number,
     cost: Number
-};
-
-const tripSchema = new mongoose.Schema(trip);
-
-tripSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Trip', tripSchema);
+});

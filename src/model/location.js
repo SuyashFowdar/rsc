@@ -1,16 +1,9 @@
-import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const location = {
+export default model('Location', {
     name: String,
     address: String,
     street: String,
     city: String,
     district: String
-};
-
-const locationSchema = new mongoose.Schema(location);
-
-locationSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Location', locationSchema);
+});

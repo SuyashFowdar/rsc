@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const product = {
+export default model('Product', {
     name: String,
     code: String,
     brand: String,
@@ -10,10 +10,4 @@ const product = {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Company'
     }
-};
-
-const productSchema = new mongoose.Schema(product);
-
-productSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Product', productSchema);
+});

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const credit = {
+export default model('Credit', {
     amount: Number,
     client: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,10 +22,4 @@ const credit = {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Transaction'
     }]
-};
-
-const creditSchema = new mongoose.Schema(credit);
-
-creditSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Credit', creditSchema);
+});

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const employee = {
+export default model('Employee', {
     name: String,
     company: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -14,10 +14,4 @@ const employee = {
     bankAccNo: Number,
     bankName: String,
     bankBranch: String
-};
-
-const employeeSchema = new mongoose.Schema(employee);
-
-employeeSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Employee', employeeSchema);
+});

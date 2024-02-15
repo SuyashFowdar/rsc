@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const product = {
+export default model('Product', {
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
@@ -17,10 +17,4 @@ const product = {
     date: Date,
     buyingPrice: Number,
     sellingPrice: Number
-};
-
-const productSchema = new mongoose.Schema(product);
-
-productSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Price', productSchema);
+});

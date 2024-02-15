@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import sanitizeJson from 'mongoose-sanitize-json';
+import model from '../lib/utils/model';
 
-const transaction = {
+export default model('Transaction', {
     details: String,
     date: Date,
     incoming: {
@@ -28,10 +28,4 @@ const transaction = {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Employee'
     }
-};
-
-const transactionSchema = new mongoose.Schema(transaction);
-
-transactionSchema.plugin(sanitizeJson);
-
-export default mongoose.model('Transaction', transactionSchema);
+});
